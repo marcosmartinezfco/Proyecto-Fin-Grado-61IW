@@ -10,5 +10,5 @@ class PredictionView(APIView):
     Class based view for all the nasdaq related requests
     """
 
-    def get(self, request, market: str, ticker: str):
-        return JsonResponse({'market': market, 'ticker': ticker})
+    def get(self, request, ticker: str):
+        return JsonResponse({'ticker': ticker})
