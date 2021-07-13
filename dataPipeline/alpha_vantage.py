@@ -9,8 +9,8 @@ def download_data(symbol: str, function='TIME_SERIES_WEEKLY', dump=False) -> dic
     valid, best_match = validate_symbol(symbol)
     if not valid:
         return _not_valid(dump)
-    url = 'https://www.alphavantage.co/query?function={}&symbol={}&interval=5min&' \
-          'apikey={}'.format(function, best_match, API_KEY)
+    url = f'https://www.alphavantage.co/query?function={function}&symbol={best_match}&interval=5min&' \
+          F'apikey={API_KEY}'
     r = requests.get(url)
     if dump:
         _dump_data(r.json(), 'api_data.txt')
@@ -18,7 +18,7 @@ def download_data(symbol: str, function='TIME_SERIES_WEEKLY', dump=False) -> dic
 
 
 def validate_symbol(symbol: str) -> (bool, str):
-    url = 'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={}&apikey={}'.format(symbol, API_KEY)
+    url = f'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={symbol}&apikey={API_KEY}'
     r = requests.get(url)
     matches = r.json()['bestMatches']
     if not matches:
