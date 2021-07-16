@@ -1,9 +1,9 @@
-# This module contains utilities for connection communication management
+# This module contains utilities for connection management
 import socket
 
 
-def encode_len(string: str, encoding: str = 'utf-8') -> bytes:
-    return str(len(string)).encode(encoding)
+def encode_len(length: str, encoding: str = 'utf-8') -> bytes:
+    return str(len(length)).encode(encoding)
 
 
 def decode_len(length: bytes, encoding: str = 'utf-8') -> int:
