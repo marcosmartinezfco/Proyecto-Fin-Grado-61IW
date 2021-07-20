@@ -57,8 +57,7 @@ class Server:
 
     def response_client(self, symbol: str, conn: socket):
         data = json.dumps(download_data(symbol))
-        encoded_len = encode_len(data)
-        encoded_len += b' ' * (self.HEADER - len(encoded_len))
+        encoded_len = prepared_send(data)
         self.logger.debug(f'[Encoded response length] {encoded_len}')
         self.logger.debug(f'[Response data] {data}')
         conn.sendall(encoded_len)
