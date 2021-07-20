@@ -20,7 +20,7 @@ def download_data(symbol: str, function='TIME_SERIES_WEEKLY', dump=False) -> dic
 def validate_symbol(symbol: str) -> (bool, str):
     url = f'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={symbol}&apikey={API_KEY}'
     r = requests.get(url)
-    matches = r.json()['bestMatches']
+    matches = r.json().get('bestMatches', None)
     if not matches:
         return False, symbol
     return True, matches[0]['1. symbol']
@@ -39,5 +39,5 @@ def _dump_data(data: dict, file: str):
 
 
 if __name__ == '__main__':
-    company = validate_symbol('cf')
+    company = validate_symbol('googl')
     print(company)

@@ -4,7 +4,7 @@ import sys
 from typing import Tuple
 from alpha_vantage import download_data
 from connection import *
-import pathlib
+import threading
 
 
 class Server:
@@ -22,7 +22,7 @@ class Server:
         self.logger = self.get_logger()
 
     def get_logger(self):
-        logger = logging.getLogger(__name__ + f'{self.addr}')
+        logger = logging.getLogger(__name__ + f'_{self.addr}')
         logger.setLevel(logging.DEBUG)
         console_handler = logging.StreamHandler(sys.stdout)
         file_handler = logging.FileHandler(f'logs/{self.addr}_debug.log')
@@ -35,12 +35,15 @@ class Server:
         return logger
 
     def start(self):
-        self.server.bind((self.addr, self.port))
-        self.server.listen()
-        self.logger.info(f"[Starting] Listening on {self.addr}[{self.port}]")
-        while True:
-            conn, ip = self.server.accept()
-            self.manage_client(conn, ip)
+        try:
+            self.server.bind((self.addr, self.port))
+            self.server.listen()
+            self.logger.info(f"[Starting] Listening on {self.addr}[{self.port}]")
+            while True:
+                conn, ip = self.server.accept()
+                threading.Thread(target=self.manage_client, args=(conn, ip)).start()
+        except KeyboardInterrupt:
+            self.server.close()
 
     def manage_client(self, conn: socket, ip: Tuple[str]):
         with conn as c:
@@ -60,3 +63,4 @@ class Server:
         self.logger.debug(f'[Response data] {data}')
         conn.sendall(encoded_len)
         conn.sendall(data.encode(Server.FORMAT))
+
