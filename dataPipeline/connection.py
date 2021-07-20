@@ -23,3 +23,9 @@ def recv_all(conn: socket) -> bytes:
             break
         data += packet
     return data
+
+
+def prepared_send(msg: str, header: int = 64) -> bytes:
+    send = encode_len(msg)
+    send += b' ' * (header - len(send))
+    return send
