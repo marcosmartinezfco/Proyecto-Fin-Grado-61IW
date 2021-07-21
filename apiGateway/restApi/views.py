@@ -1,8 +1,7 @@
-from django.shortcuts import render
 from rest_framework.views import APIView
 from django.http import JsonResponse
-from rest_framework.response import Response
-from rest_framework import status
+from restApi.client import Client
+import json
 
 
 class PredictionView(APIView):
@@ -11,4 +10,6 @@ class PredictionView(APIView):
     """
 
     def get(self, request, ticker: str):
-        return JsonResponse({'ticker': ticker})
+        client = Client('127.0.1.1', 15032)
+        data = client.connect(ticker)
+        return JsonResponse(json.loads(data))
