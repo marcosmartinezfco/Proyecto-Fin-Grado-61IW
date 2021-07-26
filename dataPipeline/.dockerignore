@@ -1,0 +1,3 @@
+# ignore file for docker
+logs
+api_data.txt
