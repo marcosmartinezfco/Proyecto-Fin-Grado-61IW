@@ -39,7 +39,7 @@ class Client:
 
 
 def main():
-    client = Client('127.0.1.1', 15032)
+    client = Client('127.0.0.1', 15032)
     data = client.connect('amazon')
     print(data)
 
