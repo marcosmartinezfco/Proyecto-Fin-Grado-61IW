@@ -25,3 +25,10 @@ jobs:
           context: apiGateway/
           push: true
           tags: marcosmartinezfco/tfg-api-gateway:latest
+
+      - name: Build and push data-pipeline image
+        uses: docker/build-push-action@v2
+        with:
+          context: dataPipeline/
+          push: true
+          tags: marcosmartinezfco/tfg-data-pipeline:latest
