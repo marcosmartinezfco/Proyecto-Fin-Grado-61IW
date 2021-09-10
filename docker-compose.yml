@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+        apiGateway:
+                image: marcosmartinezfco/tfg-api-gateway
+                container_name: api-gateway
+                networks:
+                        - tfg-net
+                ports:
+                        - "8000:8000"
+                depends_on:
+                        - dataPipeline
+
+        dataPipeline:
+                image: marcosmartinezfco/tfg-data-pipeline
+                container_name: data-pipeline
+                networks:
+                        - tfg-net
+networks:
+        tfg-net:
+                external: true

@@ -36,13 +36,3 @@ class Client:
             self.logger.debug(f'[Symbol] {symbol} - {symbol.encode(Client.FORMAT)}')
             s.sendall(symbol.encode(Client.FORMAT))
             return recv_all(s).decode(Client.FORMAT)
-
-
-def main():
-    client = Client('127.0.0.1', 15032)
-    data = client.connect('amazon')
-    print(data)
-
-
-if __name__ == '__main__':
-    main()
