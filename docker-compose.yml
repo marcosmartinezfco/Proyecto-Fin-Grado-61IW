@@ -17,4 +17,5 @@ services:
                         - tfg-net
 networks:
         tfg-net:
-                external: true
+                name: tfg-net
+                driver: bridge
