@@ -9,7 +9,7 @@ def download_data(symbol: str, function='TIME_SERIES_DAILY', dump=False) -> dict
     valid, best_match = validate_symbol(symbol)
     if not valid:
         return _not_valid(dump)
-    url = f'https://www.alphavantage.co/query?function={function}&symbol={best_match}&interval=5min&' \
+    url = f'https://www.alphavantage.co/query?function={function}&outputsize=full&symbol={best_match}&interval=5min&' \
           F'apikey={API_KEY}'
     r = requests.get(url)
     if dump:
