@@ -5,7 +5,7 @@ import json
 API_KEY = 'DEJURKAO1Y269SIZ'
 
 
-def download_data(symbol: str, function='TIME_SERIES_WEEKLY', dump=False) -> dict:
+def download_data(symbol: str, function='TIME_SERIES_DAILY', dump=False) -> dict:
     valid, best_match = validate_symbol(symbol)
     if not valid:
         return _not_valid(dump)
