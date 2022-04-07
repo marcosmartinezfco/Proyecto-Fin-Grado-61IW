@@ -9,12 +9,25 @@ services:
                         - "8000:8000"
                 depends_on:
                         - dataPipeline
-
+                        - predictionModule
         dataPipeline:
                 image: marcosmartinezfco/tfg-data-pipeline
                 container_name: data-pipeline
                 networks:
                         - tfg-net
+        predictionModule:
+                image: tensorflow/serving
+                container_name: prediction-module
+                networks:
+                        - tfg-net
+                ports:
+                        - "8501:8501"
+                depends_on:
+                        - dataPipeline
+                volumes:
+                        - ${MODELPATH}/mlp_model:/models/mlp_model
+                environment:
+                        - MODEL_NAME=mlp_model
 networks:
         tfg-net:
                 name: tfg-net
