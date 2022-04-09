@@ -21,7 +21,7 @@ class PredictionView(APIView):
         raw_df.index = pd.to_datetime(raw_df.index)
         response = requests.post('http://172.18.0.3:8501/v1/models/mlp_model:predict', data=json.dumps({
             "signature_name": "serving_default",
-            "instances":  raw_df.sort_index().iloc[-1].values.tolist()
+            "instances":  raw_df.sort_index().iloc[-1].to_numpy().tolist()
         }))
         response.raise_for_status()
         return JsonResponse(response.json())
