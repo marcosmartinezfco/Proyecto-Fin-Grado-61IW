@@ -23,5 +23,5 @@ class PredictionView(APIView):
             "signature_name": "serving_default",
             "instances":  raw_df.sort_index().iloc[-1].to_numpy().tolist()
         }))
-        response.raise_for_status()
+        #response.raise_for_status()
         return JsonResponse(response.json())
