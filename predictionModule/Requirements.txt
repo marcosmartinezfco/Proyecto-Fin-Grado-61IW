@@ -1,0 +1,8 @@
+jupyterlab
+pandas
+numpy
+matplotlib
+mplfinance
+scipy
+tensorflow
+sklearn

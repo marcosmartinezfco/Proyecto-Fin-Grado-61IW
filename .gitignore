@@ -327,6 +327,7 @@ fabric.properties
 [Ll]ocal
 [Ss]cripts
 pyvenv.cfg
+.env
 pip-selfcheck.json
 */api_data.txt
 
